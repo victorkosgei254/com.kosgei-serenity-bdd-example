@@ -1,0 +1,55 @@
+plugins{
+    id  "net.serenity-bdd.serenity-gradle-plugin" version "3.3.0"
+    id 'application'
+}
+
+
+repositories {
+    mavenCentral()
+}
+dependencies {
+    // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+
+    // https://mvnrepository.com/artifact/org.junit.platform/junit-platform-launcher
+    testImplementation 'org.junit.platform:junit-platform-launcher:1.8.2'
+
+    // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+
+    // https://mvnrepository.com/artifact/net.serenity-bdd/serenity-core
+    testImplementation 'net.serenity-bdd:serenity-core:3.2.5'
+
+    // https://mvnrepository.com/artifact/net.serenity-bdd/serenity-junit
+    testImplementation 'net.serenity-bdd:serenity-junit:3.2.5'
+
+    // https://mvnrepository.com/artifact/org.assertj/assertj-core
+    testImplementation 'org.assertj:assertj-core:3.23.1'
+
+    // https://mvnrepository.com/artifact/net.serenity-bdd/serenity-junit5
+    testImplementation 'net.serenity-bdd:serenity-junit5:3.2.5'
+
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+    testImplementation 'org.slf4j:slf4j-api:1.7.36'
+    // https://mvnrepository.com/artifact/io.cucumber/cucumber-java
+    testImplementation 'io.cucumber:cucumber-java:7.4.1'
+
+}
+defaultTasks 'clean', 'test', 'aggregate'
+test{
+    useJUnitPlatform()
+    
+}
+
+application {
+    mainClass = "com.serenity.one.Main"
+}
+serenity {
+    reports=["single-page-html"]
+    testRoot = "com.serenity.one"
+    // root = "com.serenity.one.features"
+    requirementsDir = "com.serenity.one.features"
+
+    
+}
+test.finalizedBy(aggregate)
